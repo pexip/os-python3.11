@@ -433,6 +433,7 @@ common_configure_args = \
 		--with-system-expat \
 		--with-dtrace \
 		--with-system-libmpdec \
+		--with-valgrind \
 		--with-wheel-pkg-dir=/usr/share/python-wheels/ \
 		MKDIR_P="/bin/mkdir -p" \
 
