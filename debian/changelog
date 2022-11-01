@@ -1,6 +1,7 @@
 python3.11 (3.11.0-1pexip1) pexip; urgency=medium
 
   * Prepare Pexip packaging
+  * Build against libssl1.0
 
  -- Huw Jones <huw@pexip.com>  Tue, 01 Nov 2022 11:25:29 +0000
 
