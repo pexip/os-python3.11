@@ -5,7 +5,7 @@ Bug-cpython: https://bugs.python.org/issue21536
 
 --- a/Lib/distutils/command/build_ext.py
 +++ b/Lib/distutils/command/build_ext.py
-@@ -231,7 +231,7 @@ class build_ext(Command):
+@@ -231,7 +231,7 @@
          # For building extensions with a shared Python library,
          # Python's library directory must be appended to library_dirs
          # See Issues: #1600860, #4366
@@ -14,7 +14,7 @@ Bug-cpython: https://bugs.python.org/issue21536
              if not sysconfig.python_build:
                  # building third party extensions
                  self.library_dirs.append(sysconfig.get_config_var('LIBDIR'))
-@@ -734,7 +734,7 @@ class build_ext(Command):
+@@ -734,7 +734,7 @@
              # shared libraries are resolved at link time.
              from distutils.sysconfig import get_config_var
              link_libpython = False

@@ -6,7 +6,7 @@ Forwarded: no
 
 --- a/Lib/pydoc.py
 +++ b/Lib/pydoc.py
-@@ -1586,6 +1586,8 @@ def getpager():
+@@ -1582,6 +1582,8 @@
          return plainpager
      if sys.platform == 'win32':
          return lambda text: tempfilepager(plain(text), 'more <')

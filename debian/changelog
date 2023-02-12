@@ -1,3 +1,42 @@
+python3.11 (3.11.2-4) unstable; urgency=medium
+
+  [ Stefano Rivera ]
+  * Revert the CCSHARED patch to test_customize_compiler, this was WIP and
+    didn't work.
+
+  [Matthias Klose]
+  * Remove build dependency on libb2-dev, oldish library.
+  * Build with internal mpdecimal library, so that mpdecimal can be removed
+    for bookworm.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 12 Feb 2023 01:48:52 +0100
+
+python3.11 (3.11.2-3) unstable; urgency=medium
+
+  [ Stefano Rivera ]
+  * Refresh patches.
+  * Revert pip importlib.metadata workaround, fixed in pip 22.2.
+  * Declare python3.11 to be PEP 668 EXTERNALLY-MANAGED.
+  * Update and install README.venv, explaining this.
+  * Recommend ca-certificates from python3.11. Closes: #960869.
+  * Configure --with-ssl-default-suites=openssl. Closes: #1026802.
+  * Update watch file.
+  * Include CCSHARED override in distutils test_customize_compiler.
+
+  [Matthias Klose]
+  * Really new upstream version.
+  * Configure --with-ssl-default-suites=openssl. Closes: #1009189.
+  * Build-depend on libb2-dev.
+  * Fix removing Debian build flags from _sysconfigdata. LP: #2006738.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 10 Feb 2023 05:59:34 +0100
+
+python3.11 (3.11.2-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 06 Feb 2023 21:27:04 +0100
+
 python3.11 (3.11.1-2) unstable; urgency=medium
 
   * Fix NameError exception in venv init (Daniel Andersson). Closes: #1026448.

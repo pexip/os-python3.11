@@ -46,8 +46,8 @@ testFibPyDevelop() {
 
 testFibPyPip() {
 	cd "$AUTOPKGTEST_TMP"
-	python3.11 -m pip install --no-build-isolation --user -v \
-		"$AUTOPKGTEST_TMP/packages/fibpy"
+	python3.11 -m pip install --no-build-isolation --break-system-packages \
+		--user -v "$AUTOPKGTEST_TMP/packages/fibpy"
 	assertTrue 'Install fibpy via pip in --user' $?
 	assertTrue 'fibpy was installed to ~/.local' "[ -e $site_packages/fibpy.py ]"
 	stdout=$(python3.11 -m fibpy 5)
@@ -57,8 +57,8 @@ testFibPyPip() {
 
 testFibPyPipEditable() {
 	cd "$AUTOPKGTEST_TMP"
-	python3.11 -m pip install --no-build-isolation --user -v -e \
-		"$AUTOPKGTEST_TMP/packages/fibpy"
+	python3.11 -m pip install --no-build-isolation --break-system-packages \
+		--user -v -e "$AUTOPKGTEST_TMP/packages/fibpy"
 	assertTrue 'Install editable fibpy via pip in --user' $?
 	assertTrue 'fibpy was linked to ~/.local' "[ -e $site_packages/__editable__.fibpy-42.0.0.pth ]"
 	stdout=$(python3.11 -m fibpy 5)

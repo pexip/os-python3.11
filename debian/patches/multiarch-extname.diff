@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/Lib/distutils/dir_util.py
 +++ b/Lib/distutils/dir_util.py
-@@ -96,6 +96,9 @@ def create_tree(base_dir, files, mode=0o
+@@ -96,6 +96,9 @@
      for dir in sorted(need_dir):
          mkpath(dir, mode, verbose=verbose, dry_run=dry_run)
  
@@ -16,7 +16,7 @@ Forwarded: not-needed
  def copy_tree(src, dst, preserve_mode=1, preserve_times=1,
                preserve_symlinks=0, update=0, verbose=1, dry_run=0):
      """Copy an entire directory tree 'src' to a new location 'dst'.
-@@ -131,6 +134,13 @@ def copy_tree(src, dst, preserve_mode=1,
+@@ -131,6 +134,13 @@
              raise DistutilsFileError(
                    "error listing files in '%s': %s" % (src, e.strerror))
  
@@ -30,7 +30,7 @@ Forwarded: not-needed
      if not dry_run:
          mkpath(dst, verbose=verbose)
  
-@@ -139,6 +149,9 @@ def copy_tree(src, dst, preserve_mode=1,
+@@ -139,6 +149,9 @@
      for n in names:
          src_name = os.path.join(src, n)
          dst_name = os.path.join(dst, n)
@@ -42,7 +42,7 @@ Forwarded: not-needed
              # skip NFS rename files
 --- a/Lib/distutils/command/install_lib.py
 +++ b/Lib/distutils/command/install_lib.py
-@@ -56,6 +56,7 @@ class install_lib(Command):
+@@ -56,6 +56,7 @@
          self.compile = None
          self.optimize = None
          self.skip_build = None
@@ -50,7 +50,7 @@ Forwarded: not-needed
  
      def finalize_options(self):
          # Get all the information we need to install pure Python modules
-@@ -68,6 +69,7 @@ class install_lib(Command):
+@@ -68,6 +69,7 @@
                                     ('compile', 'compile'),
                                     ('optimize', 'optimize'),
                                     ('skip_build', 'skip_build'),
@@ -58,7 +58,7 @@ Forwarded: not-needed
                                    )
  
          if self.compile is None:
-@@ -108,6 +110,8 @@ class install_lib(Command):
+@@ -108,6 +110,8 @@
  
      def install(self):
          if os.path.isdir(self.build_dir):
@@ -69,7 +69,7 @@ Forwarded: not-needed
              self.warn("'%s' does not exist -- no Python modules to install" %
 --- a/Lib/distutils/command/install.py
 +++ b/Lib/distutils/command/install.py
-@@ -220,6 +220,7 @@ class install(Command):
+@@ -220,6 +220,7 @@
  
          # enable custom installation, known values: deb
          self.install_layout = None
@@ -77,7 +77,7 @@ Forwarded: not-needed
  
          self.compile = None
          self.optimize = None
-@@ -484,6 +485,8 @@ class install(Command):
+@@ -484,6 +485,8 @@
              self.install_platbase = self.exec_prefix
              if self.install_layout:
                  if self.install_layout.lower() in ['deb']:

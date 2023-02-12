@@ -5,7 +5,7 @@ Forwarded: no
 
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3010,8 +3010,8 @@ then
+@@ -3171,8 +3171,8 @@
  		LDSHARED='$(CC) -shared'
  		LDCXXSHARED='$(CXX) -shared';;
  	Linux*|GNU*|QNX*|VxWorks*|Haiku*)
@@ -16,7 +16,7 @@ Forwarded: no
  	FreeBSD*)
  		if [[ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]]
  		then
-@@ -3124,7 +3124,7 @@ then
+@@ -3285,7 +3285,7 @@
  	    LINKFORSHARED="-Wl,-E -Wl,+s";;
  #	    LINKFORSHARED="-Wl,-E -Wl,+s -Wl,+b\$(BINLIBDEST)/lib-dynload";;
  	Linux-android*) LINKFORSHARED="-pie -Xlinker -export-dynamic";;

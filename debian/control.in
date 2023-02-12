@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 11), @bd_dpkgdev@
   zlib1g-dev, libbz2-dev, liblzma-dev,
   libgdbm-dev, @bd_dbm@,
   tk-dev, blt-dev (>= 2.4z), libssl-dev,
-  libexpat1-dev, libmpdec-dev (>= 2.5.1~),
+  libexpat1-dev,
   libbluetooth-dev [linux-any] <!pkg.@PVER@.nobluetooth>,
   locales-all,
   libsqlite3-dev, libffi-dev (>= 3.0.5) [!or1k !avr32],
@@ -19,7 +19,7 @@ Build-Depends: debhelper (>= 11), @bd_dpkgdev@
   systemtap-sdt-dev,
   valgrind-if-available,
 Build-Depends-Indep: python3-sphinx, python3-docs-theme, texinfo
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Vcs-Browser: https://salsa.debian.org/cpython-team/python3
 Vcs-Git: https://salsa.debian.org/cpython-team/python3.git
 XS-Testsuite: autopkgtest
@@ -32,6 +32,7 @@ Depends: @PVER@-minimal (= ${binary:Version}),
  lib@PVER@-stdlib (= ${binary:Version}),
  media-types | mime-support,
  ${shlibs:Depends}, ${misc:Depends}
+Recommends: ca-certificates
 Suggests: @PVER@-venv, @PVER@-doc, binutils
 Breaks: python3-all (<< 3.6.5~rc1-1),
   python3-dev (<< 3.6.5~rc1-1),
@@ -46,7 +47,7 @@ Architecture: any
 Multi-Arch: allowed
 Priority: @PRIO@
 Depends: @PVER@ (= ${binary:Version}),
- python3-pip-whl,
+ python3-pip-whl (>= 22.2),
  python3-setuptools-whl,
  @PVER@-distutils,
  ${shlibs:Depends}, ${misc:Depends},
