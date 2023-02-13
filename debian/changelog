@@ -1,3 +1,9 @@
+python3.11 (3.11.1-2pexip1) pexip; urgency=medium
+
+  * Revert build against libssl1.0 and instead build against libssl3
+
+ -- Huw Jones <huw@pexip.com>  Mon, 13 Feb 2023 17:41:19 +0000
+
 python3.11 (3.11.1-2) unstable; urgency=medium
 
   * Fix NameError exception in venv init (Daniel Andersson). Closes: #1026448.
