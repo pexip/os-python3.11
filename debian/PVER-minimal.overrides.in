@@ -1,1 +1,4 @@
 @PVER@-minimal binary: command-with-path-in-maintainer-script
+
+# pyexpat.c contains expat error messages that lintian mis-attributes to embedding
+@PVER@-minimal binary: embedded-library
