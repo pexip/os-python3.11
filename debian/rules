@@ -243,15 +243,14 @@ ifeq ($(with_lto),yes)
 endif
 
 sysconfig_substflags = \
-	-e 's,gcc-8,gcc,;s,g++-8,g++,' \
 	$(if $(with_lto),$(foreach i,-flto=auto -flto -fuse-linker-plugin -ffat-lto-objects,-e 's/$(i)//g')) \
 	-e '/^OPT/s,-O3,-O2,' \
 	-e 's/-O3/-O2/g' \
 	-e 's/-fprofile-use *-fprofile-correction//g' \
 	-e 's/-fstack-protector /-fstack-protector-strong /g' \
-	-e 's/-specs=[^ ]*//g' \
-	-e 's/-fdebug-prefix-map=[^ ]*//g' \
-	-e 's/-ffile-prefix-map=[^ ]*//g' \
+	-e "s/-specs=[^ ']*//g" \
+	-e "s/-fdebug-prefix-map=[^ ']*//g" \
+	-e "s/-ffile-prefix-map=[^ ']*//g" \
 	-e 's/-Wl,-z,relro//g' \
 	-e 's,^RUNSHARED *=.*,RUNSHARED=,' \
 	-e '/BLDLIBRARY/s/-L\. //'
@@ -436,9 +435,10 @@ common_configure_args = \
 		--without-ensurepip \
 		--with-system-expat \
 		--with-dtrace \
-		--with-system-libmpdec \
-		--with-valgrind \
+		--with-ssl-default-suites=openssl \
 		--with-wheel-pkg-dir=/usr/share/python-wheels/ \
+		--with-ssl-default-suites=openssl \
+		--with-valgrind \
 		MKDIR_P="/bin/mkdir -p" \
 
 ifneq (,$(filter $(DEB_HOST_ARCH), avr32 or1k))
@@ -1204,7 +1204,7 @@ endif
 	: # Move the docs into $(p_base)'s /usr/share/doc/$(PVER) directory,
 	: # all other packages only have a copyright file.
 	dh_installdocs -p$(p_base) \
-		README.rst Misc/NEWS Misc/ACKS
+		README.rst Misc/NEWS Misc/ACKS debian/README.venv
 	ln -sf NEWS.gz $(d_base)/usr/share/doc/$(p_base)/changelog.gz
 	dh_installdocs --all \
 		-N$(p_base) -N$(p_dev) -N$(p_dbg) -N$(p_lib) \
@@ -1238,6 +1238,10 @@ endif
 		usr/lib
 	dh_movefiles -p$(p_lbase) \
 		usr/lib/python$(VER)
+
+	# Mark the interpreter as being PEP668 EXTERNALLY-MANAGED
+	install -m 644 debian/EXTERNALLY-MANAGED \
+		$(d_lbase)/$(scriptdir)
 
 	: # The rest goes into $(p_base)
 	mkdir -p $(d)/usr/lib/python3/dist-packages

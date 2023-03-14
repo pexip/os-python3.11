@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/Lib/argparse.py
 +++ b/Lib/argparse.py
-@@ -91,7 +91,16 @@ import sys as _sys
+@@ -91,7 +91,16 @@
  
  import warnings
  

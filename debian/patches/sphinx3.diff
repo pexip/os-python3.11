@@ -6,7 +6,7 @@ Origin: upstream, https://github.com/python/cpython/commit/423e77d6de497931585d1
 
 --- a/Doc/conf.py
 +++ b/Doc/conf.py
-@@ -61,6 +61,10 @@ smartquotes_excludes = {
+@@ -77,6 +77,10 @@
  # Avoid a warning with Sphinx >= 2.0
  master_doc = 'contents'
  
@@ -19,7 +19,7 @@ Origin: upstream, https://github.com/python/cpython/commit/423e77d6de497931585d1
  
 --- a/Doc/Makefile
 +++ b/Doc/Makefile
-@@ -12,7 +12,7 @@ BLURB        = PATH=$(VENVDIR)/bin:$$PAT
+@@ -13,7 +13,7 @@
  PAPER        =
  SOURCES      =
  DISTVERSION  = $(shell $(PYTHON) tools/extensions/patchlevel.py)

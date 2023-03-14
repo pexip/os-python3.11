@@ -6,7 +6,7 @@ Forwarded: not-needed
 
 --- a/Lib/argparse.py
 +++ b/Lib/argparse.py
-@@ -178,9 +178,12 @@ class HelpFormatter(object):
+@@ -178,9 +178,12 @@
  
          # default setting for width
          if width is None:

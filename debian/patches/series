@@ -38,4 +38,3 @@ sphinx3.diff
 destshared-location.diff
 fix-py_compile.diff
 ntpath-import.diff
-pip-importlib.metadata-hack.diff
