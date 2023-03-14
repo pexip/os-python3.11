@@ -1,3 +1,9 @@
+python3.11 (3.11.2-4pexip1) pexip; urgency=medium
+
+  * New upstream release
+
+ -- Huw Jones <huw@pexip.com>  Tue, 14 Mar 2023 15:49:39 +0000
+
 python3.11 (3.11.2-4) unstable; urgency=medium
 
   [ Stefano Rivera ]
