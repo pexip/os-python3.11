@@ -1,3 +1,9 @@
+python3.11 (3.11.2-6pexip2) pexip; urgency=medium
+
+  * Fix md5 security patch
+
+ -- Huw Jones <huw@pexip.com>  Wed, 26 Apr 2023 13:24:26 +0100
+
 python3.11 (3.11.2-6pexip1) pexip; urgency=medium
 
   * New upstream release

@@ -5,7 +5,7 @@
  /*[clinic end generated code: output=87b0186440a44f8c input=990e36d5e689b16e]*/
  {
 -    return py_evp_fromname(module, Py_hash_md5, data_obj, usedforsecurity);
-+    return py_evp_fromname(module, Py_hash_md5, data_obj, false);
++    return py_evp_fromname(module, Py_hash_md5, data_obj, 0);
  }
  
  
