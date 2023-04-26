@@ -1,6 +1,7 @@
 python3.11 (3.11.2-6pexip1) pexip; urgency=medium
 
   * New upstream release
+  * Don't use md5 for security
 
  -- Huw Jones <huw@pexip.com>  Wed, 26 Apr 2023 11:43:21 +0100
 
