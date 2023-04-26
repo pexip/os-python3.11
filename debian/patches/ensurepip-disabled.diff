@@ -78,7 +78,7 @@ Forwarded: not-needed
 +package, recreate your virtual environment.
 +
 +Failing command: {}
-+""".format(sysconfig.get_python_version(), err.cmd))
++""".format(sysconfig.get_python_version(), context.env_exec_cmd))
 +                sys.exit(1)
 +            raise
  

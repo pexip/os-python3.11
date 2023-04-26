@@ -15,3 +15,6 @@ lib@PVER@-dbg binary: arch-dependent-file-not-in-arch-specific-directory
 # yes, some extensions don't have references to any external lib
 lib@PVER@-dbg binary: shared-lib-without-dependency-information
 lib@PVER@-dbg binary: library-not-linked-against-libc
+
+# pyexpat.c contains expat error messages that lintian mis-attributes to embedding
+lib@PVER@-dbg binary: embedded-library
