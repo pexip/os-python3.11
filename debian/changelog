@@ -1,3 +1,9 @@
+python3.11 (3.11.2-6pexip3) pexip-bookworm; urgency=medium
+
+  * Initial bookworm build
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 16 Nov 2023 10:27:40 +0000
+
 python3.11 (3.11.2-6pexip2) pexip; urgency=medium
 
   * Fix md5 security patch
