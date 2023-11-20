@@ -42,3 +42,6 @@ shutdown-deadlock.diff
 pexip-md5-security.patch
 pexip-openssl3-deprecations.diff
 pexip_native-md5.diff
+pexip_CVE-2023-40217a.patch
+pexip_CVE-2023-40217b.patch
+pexip_CVE-2023-40217c.patch
