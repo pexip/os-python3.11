@@ -40,3 +40,4 @@ fix-py_compile.diff
 ntpath-import.diff
 shutdown-deadlock.diff
 pexip-md5-security.patch
+pexip-openssl3-deprecations.diff
