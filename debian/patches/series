@@ -41,3 +41,4 @@ ntpath-import.diff
 shutdown-deadlock.diff
 pexip-md5-security.patch
 pexip-openssl3-deprecations.diff
+pexip_native-md5.diff
