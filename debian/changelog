@@ -1,3 +1,9 @@
+python3.11 (3.11.2-6+pexip24u6) pexip-bookworm; urgency=medium
+
+  * New versioning scheme
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Thu, 01 Feb 2024 16:27:49 +0000
+
 python3.11 (3.11.2-6pexip5) pexip-bookworm; urgency=medium
 
   * Rebuild for override changes.
