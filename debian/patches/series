@@ -45,3 +45,4 @@ pexip_native-md5.diff
 pexip_CVE-2023-40217a.patch
 pexip_CVE-2023-40217b.patch
 pexip_CVE-2023-40217c.patch
+pexip_CVE-2024-0450.patch

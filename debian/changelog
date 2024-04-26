@@ -1,3 +1,10 @@
+python3.11 (3.11.2-6+pexip24u7) pexip; urgency=medium
+
+  * Apply upstream security fix for CVE-2024-0450
+    Protect zipfile from "quoted-overlap" zipbomb
+
+ -- Steve McIntyre <steve.mcintyre@pexip.com>  Fri, 26 Apr 2024 16:10:48 +0100
+
 python3.11 (3.11.2-6+pexip24u6) pexip-bookworm; urgency=medium
 
   * New versioning scheme
