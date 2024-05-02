@@ -39,3 +39,12 @@ destshared-location.diff
 fix-py_compile.diff
 ntpath-import.diff
 shutdown-deadlock.diff
+frame_dealloc-crash.diff
+CVE-2024-0450.patch
+CVE-2023-6597.patch
+relfile-nullptr-dereference.patch
+CVE-2023-41105-path-truncation.patch
+CVE-2023-40217-ssl-pre-close-flaw.patch
+CVE-2023-40217-ref-cycle.patch
+CVE-2023-40217-test-reliability.patch
+CVE-2023-24329-strip-control-chars-urlsplit.patch
