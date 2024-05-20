@@ -1,4 +1,4 @@
-python3.11 (3.11.2-6+pexip24u8+deb12u2) bookworm; urgency=medium
+python3.11 (3.11.2-6+pexip24u8+deb12u2) pexip; urgency=medium
 
   * New upstream release.
   * Take security fixes merged upstream.
