@@ -13,6 +13,36 @@ python3.11 (3.11.2-6+pexip24u6) pexip-bookworm; urgency=medium
 
  -- Mark Hymers <mark.hymers@pexip.com>  Thu, 01 Feb 2024 16:27:49 +0000
 
+python3.11 (3.11.2-6+deb12u2) bookworm; urgency=medium
+
+  [ Steve McIntyre ]
+  * Apply upstream security fix for CVE-2024-0450
+    Protect zipfile from "quoted-overlap" zipbomb.
+    Closes: #1070133
+  * Apply and tweak upstream security fix for CVE-2023-6597
+    tempfile.TemporaryDirectory: fix symlink bug in cleanup
+    Closes: #1070135
+
+  [ Stefano Rivera ]
+  * Apply upstream patch to avoid a potential null pointer dereference in
+    fileutils.
+  * Apply upstream security fix for CVE-2023-41105
+    os.path.normpath(): Path truncation at null bytes.
+  * Apply upstream security fix for CVE-2023-40217
+    Avoid bypass TLS of handshake protections on closed sockets.
+  * Apply upstream security fix for CVE-2023-24329
+    Strip C0 control and space characters in urlsplit.
+
+ -- Stefano Rivera <stefanor@debian.org>  Thu, 02 May 2024 07:59:08 -0400
+
+python3.11 (3.11.2-6+deb12u1) bookworm; urgency=medium
+
+  [ Anders Kaseorg ]
+  * Fix a use-after-free crash when deallocating a frame object
+    (closes: #1050843).
+
+ -- Stefano Rivera <stefanor@debian.org>  Sat, 02 Mar 2024 16:28:50 -0400
+
 python3.11 (3.11.2-6pexip5) pexip-bookworm; urgency=medium
 
   * Rebuild for override changes.

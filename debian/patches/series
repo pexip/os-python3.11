@@ -42,8 +42,12 @@ shutdown-deadlock.diff
 pexip-md5-security.patch
 pexip-openssl3-deprecations.diff
 pexip_native-md5.diff
-pexip_CVE-2023-40217a.patch
-pexip_CVE-2023-40217b.patch
-pexip_CVE-2023-40217c.patch
-pexip_CVE-2024-0450.patch
-pexip_CVE-2023-6597.patch
+frame_dealloc-crash.diff
+CVE-2024-0450.patch
+CVE-2023-6597.patch
+relfile-nullptr-dereference.patch
+CVE-2023-41105-path-truncation.patch
+CVE-2023-40217-ssl-pre-close-flaw.patch
+CVE-2023-40217-ref-cycle.patch
+CVE-2023-40217-test-reliability.patch
+CVE-2023-24329-strip-control-chars-urlsplit.patch
