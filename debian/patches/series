@@ -51,3 +51,4 @@ CVE-2023-40217-ssl-pre-close-flaw.patch
 CVE-2023-40217-ref-cycle.patch
 CVE-2023-40217-test-reliability.patch
 CVE-2023-24329-strip-control-chars-urlsplit.patch
+gh-106905.patch

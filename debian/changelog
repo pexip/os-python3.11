@@ -1,3 +1,11 @@
+python3.11 (3.11.2-6+pexip24u8+deb12u3) pexip; urgency=medium
+
+  * Use per AST-parser state rather than global state to track recursion depth within the
+    AST parser to prevent potential race condition due to simultaneous parsing.
+    Fixes https://github.com/python/cpython/issues/106905
+
+ -- Huw Jones <huw@pexip.com>  Thu, 13 Jun 2024 11:56:11 +0100
+
 python3.11 (3.11.2-6+pexip24u8+deb12u2) pexip; urgency=medium
 
   * New upstream release.
