@@ -1,4 +1,4 @@
-python3.11 (3.11.2-6+pexip24u8+deb12u3) pexip; urgency=medium
+python3.11 (3.11.2-6+pexip24u9+deb12u2) pexip; urgency=medium
 
   * Use per AST-parser state rather than global state to track recursion depth within the
     AST parser to prevent potential race condition due to simultaneous parsing.
