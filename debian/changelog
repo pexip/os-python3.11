@@ -1,3 +1,18 @@
+python3.11 (3.11.2-6+pexip24u9+deb12u3) pexip; urgency=medium
+
+  * New upstream release.
+  * Take security fixes merged upstream.
+
+ -- Steve McIntyre <steve.mcintyre@pexip.com>  Mon, 02 Sep 2024 16:52:28 +0100
+
+python3.11 (3.11.2-6+deb12u3) bookworm-security; urgency=medium
+
+  * CVE-2024-0397 
+  * CVE-2024-4032
+  * CVE-2024-8088
+
+ -- Moritz Mühlenhoff <jmm@debian.org>  Mon, 26 Aug 2024 09:20:54 +0200
+
 python3.11 (3.11.2-6+pexip24u9+deb12u2) pexip; urgency=medium
 
   * Use per AST-parser state rather than global state to track recursion depth within the
