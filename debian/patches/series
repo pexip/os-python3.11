@@ -51,3 +51,5 @@ CVE-2023-24329-strip-control-chars-urlsplit.patch
 CVE-2024-0397.diff
 CVE-2024-4032.diff
 CVE-2024-8088.diff
+0001-3.11-gh-123270-Replaced-SanitizedNames-with-a-more-s.patch
+CVE-2024-6232.patch
