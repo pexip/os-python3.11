@@ -1,3 +1,19 @@
+python3.11 (3.11.2-6+pexip24u10+deb12u4) pexip; urgency=medium
+
+  * New upstream release with security fixes
+
+ -- Steve McIntyre <steve.mcintyre@pexip.com>  Fri, 15 Nov 2024 11:21:10 +0000
+
+python3.11 (3.11.2-6+deb12u4) bookworm; urgency=medium
+
+  * Fix zipfile.Path regression introduced by 3.11.2-6+deb12u3
+    (Closes: 1080245)
+  * Fix CVE-2024-6232: Regular expressions that allowed excessive backtracking
+    during tarfile.TarFile header parsing are vulnerable to ReDoS via
+    specifically-crafted tar archives
+
+ -- Santiago Ruano Rincón <santiagorr@riseup.net>  Sat, 14 Sep 2024 00:00:30 -0300
+
 python3.11 (3.11.2-6+pexip24u9+deb12u3) pexip; urgency=medium
 
   * New upstream release.
