@@ -56,4 +56,9 @@ CVE-2024-4032.diff
 CVE-2024-8088.diff
 0001-3.11-gh-123270-Replaced-SanitizedNames-with-a-more-s.patch
 CVE-2024-6232.patch
+0001-3.11-CVE-2023-27043-gh-102988-Reject-malformed-addre.patch
+0002-3.11-gh-121650-Encode-newlines-in-headers-and-verify.patch
+0003-3.11-gh-123067-Fix-quadratic-complexity-in-parsing-q.patch
+0004-3.11-gh-124651-Quote-template-strings-in-venv-activa.patch
+0005-3.11-gh-103848-Adds-checks-to-ensure-that-bracketed-.patch
 gh-106905.patch

@@ -1,3 +1,21 @@
+python3.11 (3.11.2-6+pexip24u11+deb12u5) pexip; urgency=medium
+
+  * New upstream release.
+
+ -- Steve McIntyre <steve.mcintyre@pexip.com>  Mon, 13 Jan 2025 17:03:40 +0000
+
+python3.11 (3.11.2-6+deb12u5) bookworm; urgency=medium
+
+  * Non-maintainer upload.
+  * CVE-2023-27043: Reject malformed addresses in email.parseaddr()
+    (Closes: #1059298)
+  * CVE-2024-6923: Encode newlines in headers in the email module
+  * CVE-2024-7592: Quadratic complexity parsing cookies with backslashes
+  * CVE-2024-9287: venv activation scripts did't quote paths
+  * CVE-2024-11168: urllib functions improperly validated bracketed hosts
+
+ -- Adrian Bunk <bunk@debian.org>  Sat, 30 Nov 2024 23:22:50 +0200
+
 python3.11 (3.11.2-6+pexip24u10+deb12u4) pexip; urgency=medium
 
   * New upstream release with security fixes
