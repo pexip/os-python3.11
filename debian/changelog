@@ -1,3 +1,10 @@
+python3.11 (3.11.2-6+pexip24u12+deb12u5) pexip; urgency=medium
+
+  * Change site customize patch to use pexproduct instead of si.platform
+    directly.
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Wed, 05 Mar 2025 15:26:31 +0000
+
 python3.11 (3.11.2-6+pexip24u11+deb12u5) pexip; urgency=medium
 
   * New upstream release.
