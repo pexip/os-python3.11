@@ -4,8 +4,8 @@ import sys
 site.addsitedir('/opt/pexip/lib/python{}.{}/site-packages'.format(*sys.version_info[:2]))
 
 try:
-    from si.apps.pexcrash.pycrash import PyCrash
+    from pexplatform.sitecustomize import install_handlers
 except ImportError:
     pass
 else:
-    PyCrash.install_handler()
+    install_handlers()
