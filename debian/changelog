@@ -1,3 +1,9 @@
+python3.11 (3.11.2-6+pexip24u12+deb12u5) pexip; urgency=medium
+
+  * Patch JSON implementation
+
+ -- John-Mark Bell <jmbe@pexip.com>  Mon, 17 Mar 2025 19:47:00 +0000
+
 python3.11 (3.11.2-6+pexip24u11+deb12u5) pexip; urgency=medium
 
   * New upstream release.
