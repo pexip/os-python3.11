@@ -62,3 +62,4 @@ CVE-2024-6232.patch
 0004-3.11-gh-124651-Quote-template-strings-in-venv-activa.patch
 0005-3.11-gh-103848-Adds-checks-to-ensure-that-bracketed-.patch
 gh-106905.patch
+pexip-json.diff
