@@ -1,0 +1,82 @@
+From c9b1142da7f477f84c7d7b9324cc4883cb8a9be4 Mon Sep 17 00:00:00 2001
+From: Serhiy Storchaka <storchaka@gmail.com>
+Date: Thu, 23 May 2024 15:09:03 +0300
+Subject: [3.11] gh-118643: Fix AttributeError in the email module (GH-119099)
+ (#119393)
+
+Fix regression introduced in gh-100884: AttributeError when re-fold a long
+address list.
+
+Also fix more cases of incorrect encoding of the address separator in the
+address list missed in gh-100884.
+(cherry picked from commit 858b9e85fcdd495947c9e892ce6e3734652c48f2)
+---
+ Lib/email/_header_value_parser.py                | 16 +++++++++++++---
+ Lib/test/test_email/test__header_value_parser.py | 12 ++++++++++--
+ 2 files changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/Lib/email/_header_value_parser.py b/Lib/email/_header_value_parser.py
+index 87c4ae9f167..04dbfa2ee86 100644
+--- a/Lib/email/_header_value_parser.py
++++ b/Lib/email/_header_value_parser.py
+@@ -952,6 +952,7 @@ class _InvalidEwError(errors.HeaderParseError):
+ DOT = ValueTerminal('.', 'dot')
+ ListSeparator = ValueTerminal(',', 'list-separator')
+ ListSeparator.as_ew_allowed = False
++ListSeparator.syntactic_break = False
+ RouteComponentMarker = ValueTerminal('@', 'route-component-marker')
+ 
+ #
+@@ -2826,13 +2827,22 @@ def _refold_parse_tree(parse_tree, *, policy):
+             if not hasattr(part, 'encode'):
+                 # It's not a Terminal, do each piece individually.
+                 parts = list(part) + parts
+-            else:
++                want_encoding = False
++                continue
++            elif part.as_ew_allowed:
+                 # It's a terminal, wrap it as an encoded word, possibly
+                 # combining it with previously encoded words if allowed.
+                 last_ew = _fold_as_ew(tstr, lines, maxlen, last_ew,
+                                       part.ew_combine_allowed, charset)
+-            want_encoding = False
+-            continue
++                want_encoding = False
++                continue
++            else:
++                # It's a terminal which should be kept non-encoded
++                # (e.g. a ListSeparator).
++                last_ew = None
++                want_encoding = False
++                # fall through
++
+         if len(tstr) <= maxlen - len(lines[-1]):
+             lines[-1] += tstr
+             continue
+diff --git a/Lib/test/test_email/test__header_value_parser.py b/Lib/test/test_email/test__header_value_parser.py
+index 7063ce7d71c..1f575545a11 100644
+--- a/Lib/test/test_email/test__header_value_parser.py
++++ b/Lib/test/test_email/test__header_value_parser.py
+@@ -2947,9 +2947,17 @@ def test_address_list_with_unicode_names_in_quotes(self):
+                 ' =?utf-8?q?bei=C3=9Ft_bei=C3=9Ft?= <biter@example.com>\n')
+ 
+     def test_address_list_with_list_separator_after_fold(self):
+-        to = '0123456789' * 8 + '@foo, ä <foo@bar>'
++        a = 'x' * 66 + '@example.com'
++        to = f'{a}, "Hübsch Kaktus" <beautiful@example.com>'
+         self._test(parser.get_address_list(to)[0],
+-                   '0123456789' * 8 + '@foo,\n =?utf-8?q?=C3=A4?= <foo@bar>\n')
++            f'{a},\n =?utf-8?q?H=C3=BCbsch?= Kaktus <beautiful@example.com>\n')
++
++        a = '.' * 79
++        to = f'"{a}" <xyz@example.com>, "Hübsch Kaktus" <beautiful@example.com>'
++        self._test(parser.get_address_list(to)[0],
++            f'{a}\n'
++            ' <xyz@example.com>, =?utf-8?q?H=C3=BCbsch?= Kaktus '
++            '<beautiful@example.com>\n')
+ 
+     # XXX Need tests with comments on various sides of a unicode token,
+     # and with unicode tokens in the comments.  Spaces inside the quotes
+-- 
+2.30.2
+

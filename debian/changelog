@@ -1,3 +1,11 @@
+python3.11 (3.11.2-6+deb12u6) bookworm; urgency=medium
+
+  * Non-maintainer upload.
+  * CVE-2025-0938: urlparse accepted hostname containing [ or ]
+  * CVE-2025-1795: Don't encode list separators in email headers
+
+ -- Adrian Bunk <bunk@debian.org>  Mon, 28 Apr 2025 17:11:48 +0300
+
 python3.11 (3.11.2-6+deb12u5) bookworm; urgency=medium
 
   * Non-maintainer upload.
