@@ -61,5 +61,8 @@ CVE-2024-6232.patch
 0003-3.11-gh-123067-Fix-quadratic-complexity-in-parsing-q.patch
 0004-3.11-gh-124651-Quote-template-strings-in-venv-activa.patch
 0005-3.11-gh-103848-Adds-checks-to-ensure-that-bracketed-.patch
+0001-3.11-gh-105704-Disallow-square-brackets-and-in-domai.patch
+0002-3.11-gh-100884-email-_header_value_parser-don-t-enco.patch
+0003-3.11-gh-118643-Fix-AttributeError-in-the-email-modul.patch
 gh-106905.patch
 pexip-json.diff
