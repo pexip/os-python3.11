@@ -1,0 +1,37 @@
+include:
+  - https://salsa.debian.org/salsa-ci-team/pipeline/raw/master/recipes/debian.yml
+
+variables:
+  RELEASE: 'bookworm'
+
+build armhf:
+  allow_failure: true
+
+blhc:
+  allow_failure: true
+
+lintian:
+  allow_failure: true
+
+.package-source: &package-source
+  before_script:
+    - echo 'deb-src http://deb.debian.org/debian bookworm main' > /etc/apt/sources.list.d/src.list
+    - apt-get -y update
+  timeout: 3h
+
+build:
+  <<: *package-source
+
+build i386:
+  <<: *package-source
+
+build source:
+  <<: *package-source
+
+test-build-all:
+  <<: *package-source
+  allow_failure: true
+
+test-build-any:
+  <<: *package-source
+  allow_failure: true
