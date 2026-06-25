@@ -1,3 +1,9 @@
+python3.11 (3.11.2-6+pexip24u13+deb12u7) pexip-v40; urgency=medium
+
+  * New upstream security release.
+
+ -- Huw Jones <huw@pexip.com>  Thu, 25 Jun 2026 12:20:31 +0100
+
 python3.11 (3.11.2-6+deb12u7) bookworm; urgency=medium
 
   * Non-maintainer upload.
