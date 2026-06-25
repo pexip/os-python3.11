@@ -1,0 +1,229 @@
+From fed1b5a198c20b4b94a594248c88b3bcac9937eb Mon Sep 17 00:00:00 2001
+From: "Miss Islington (bot)"
+ <31488909+miss-islington@users.noreply.github.com>
+Date: Thu, 8 Jun 2023 18:02:12 -0700
+Subject: [PATCH] [3.11] gh-105332: [Enum] Fix unpickling flags in edge-cases
+ (GH-105348) (GH-105519)
+
+* revert enum pickling from by-name to by-value
+
+(cherry picked from commit 4ff5690e591b7d11cf11e34bf61004e2ea58ab3c)
+
+Co-authored-by: Nikita Sobolev <mail@sobolevn.me>
+Co-authored-by: Ethan Furman <ethan@stoneleaf.us>
+---
+ Doc/howto/enum.rst                            | 11 ++++++-
+ Lib/enum.py                                   | 30 ++++++-------------
+ Lib/test/test_enum.py                         | 28 ++++++++++++++++-
+ ...-06-06-11-50-33.gh-issue-105332.tmpgRA.rst |  1 +
+ 4 files changed, 47 insertions(+), 23 deletions(-)
+ create mode 100644 Misc/NEWS.d/next/Library/2023-06-06-11-50-33.gh-issue-105332.tmpgRA.rst
+
+diff --git a/Doc/howto/enum.rst b/Doc/howto/enum.rst
+index 55f0dfb4c48c389..e9049440d23686f 100644
+--- a/Doc/howto/enum.rst
++++ b/Doc/howto/enum.rst
+@@ -484,7 +484,16 @@ from that module.
+     nested in other classes.
+ 
+ It is possible to modify how enum members are pickled/unpickled by defining
+-:meth:`__reduce_ex__` in the enumeration class.
++:meth:`__reduce_ex__` in the enumeration class.  The default method is by-value,
++but enums with complicated values may want to use by-name::
++
++    >>> class MyEnum(Enum):
++    ...     __reduce_ex__ = enum.pickle_by_enum_name
++
++.. note::
++
++    Using by-name for flags is not recommended, as unnamed aliases will
++    not unpickle.
+ 
+ 
+ Functional API
+diff --git a/Lib/enum.py b/Lib/enum.py
+index 45e3cd0b95d9b85..f07fb37852e6897 100644
+--- a/Lib/enum.py
++++ b/Lib/enum.py
+@@ -12,6 +12,7 @@
+         'FlagBoundary', 'STRICT', 'CONFORM', 'EJECT', 'KEEP',
+         'global_flag_repr', 'global_enum_repr', 'global_str', 'global_enum',
+         'EnumCheck', 'CONTINUOUS', 'NAMED_FLAGS', 'UNIQUE',
++        'pickle_by_global_name', 'pickle_by_enum_name',
+         ]
+ 
+ 
+@@ -918,7 +919,6 @@ def _convert_(cls, name, module, filter, source=None, *, boundary=None, as_globa
+         body['__module__'] = module
+         tmp_cls = type(name, (object, ), body)
+         cls = _simple_enum(etype=cls, boundary=boundary or KEEP)(tmp_cls)
+-        cls.__reduce_ex__ = _reduce_ex_by_global_name
+         if as_global:
+             global_enum(cls)
+         else:
+@@ -1225,7 +1225,7 @@ def __hash__(self):
+         return hash(self._name_)
+ 
+     def __reduce_ex__(self, proto):
+-        return getattr, (self.__class__, self._name_)
++        return self.__class__, (self._value_, )
+ 
+     # enum.property is used to provide access to the `name` and
+     # `value` attributes of enum members while keeping some measure of
+@@ -1291,8 +1291,14 @@ def _generate_next_value_(name, start, count, last_values):
+         return name.lower()
+ 
+ 
+-def _reduce_ex_by_global_name(self, proto):
++def pickle_by_global_name(self, proto):
++    # should not be used with Flag-type enums
+     return self.name
++_reduce_ex_by_global_name = pickle_by_global_name
++
++def pickle_by_enum_name(self, proto):
++    # should not be used with Flag-type enums
++    return getattr, (self.__class__, self._name_)
+ 
+ class FlagBoundary(StrEnum):
+     """
+@@ -1314,23 +1320,6 @@ class Flag(Enum, boundary=STRICT):
+     Support for flags
+     """
+ 
+-    def __reduce_ex__(self, proto):
+-        cls = self.__class__
+-        unknown = self._value_ & ~cls._flag_mask_
+-        member_value = self._value_ & cls._flag_mask_
+-        if unknown and member_value:
+-            return _or_, (cls(member_value), unknown)
+-        for val in _iter_bits_lsb(member_value):
+-            rest = member_value & ~val
+-            if rest:
+-                return _or_, (cls(rest), cls._value2member_map_.get(val))
+-            else:
+-                break
+-        if self._name_ is None:
+-            return cls, (self._value_,)
+-        else:
+-            return getattr, (cls, self._name_)
+-
+     _numeric_repr_ = repr
+ 
+     def _generate_next_value_(name, start, count, last_values):
+@@ -2047,7 +2036,6 @@ def _old_convert_(etype, name, module, filter, source=None, *, boundary=None):
+         # unless some values aren't comparable, in which case sort by name
+         members.sort(key=lambda t: t[0])
+     cls = etype(name, members, module=module, boundary=boundary or KEEP)
+-    cls.__reduce_ex__ = _reduce_ex_by_global_name
+     return cls
+ 
+ _stdlib_enums = IntEnum, StrEnum, IntFlag
+diff --git a/Lib/test/test_enum.py b/Lib/test/test_enum.py
+index f5cefa2f3520266..50048253a809600 100644
+--- a/Lib/test/test_enum.py
++++ b/Lib/test/test_enum.py
+@@ -32,6 +32,11 @@ def load_tests(loader, tests, ignore):
+                 '../../Doc/library/enum.rst',
+                 optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
+                 ))
++    if os.path.exists('Doc/howto/enum.rst'):
++        tests.addTests(doctest.DocFileSuite(
++                '../../Doc/howto/enum.rst',
++                optionflags=doctest.ELLIPSIS|doctest.NORMALIZE_WHITESPACE,
++                ))
+     return tests
+ 
+ MODULE = __name__
+@@ -67,6 +72,7 @@ class FlagStooges(Flag):
+         LARRY = 1
+         CURLY = 2
+         MOE = 4
++        BIG = 389
+ except Exception as exc:
+     FlagStooges = exc
+ 
+@@ -75,17 +81,20 @@ class FlagStoogesWithZero(Flag):
+     LARRY = 1
+     CURLY = 2
+     MOE = 4
++    BIG = 389
+ 
+ class IntFlagStooges(IntFlag):
+     LARRY = 1
+     CURLY = 2
+     MOE = 4
++    BIG = 389
+ 
+ class IntFlagStoogesWithZero(IntFlag):
+     NOFLAG = 0
+     LARRY = 1
+     CURLY = 2
+     MOE = 4
++    BIG = 389
+ 
+ # for pickle test and subclass tests
+ class Name(StrEnum):
+@@ -1860,7 +1869,6 @@ class NEI(NamedInt, Enum):
+             __qualname__ = 'NEI'
+             x = ('the-x', 1)
+             y = ('the-y', 2)
+-
+         self.assertIs(NEI.__new__, Enum.__new__)
+         self.assertEqual(repr(NEI.x + NEI.y), "NamedInt('(the-x + the-y)', 3)")
+         globals()['NamedInt'] = NamedInt
+@@ -1868,6 +1876,10 @@ class NEI(NamedInt, Enum):
+         NI5 = NamedInt('test', 5)
+         self.assertEqual(NI5, 5)
+         self.assertEqual(NEI.y.value, 2)
++        with self.assertRaisesRegex(TypeError, "name and value must be specified"):
++            test_pickle_dump_load(self.assertIs, NEI.y)
++        # fix pickle support and try again
++        NEI.__reduce_ex__ = enum.pickle_by_enum_name
+         test_pickle_dump_load(self.assertIs, NEI.y)
+         test_pickle_dump_load(self.assertIs, NEI)
+ 
+@@ -3120,11 +3132,17 @@ def test_pickle(self):
+         test_pickle_dump_load(self.assertEqual,
+                         FlagStooges.CURLY&~FlagStooges.CURLY)
+         test_pickle_dump_load(self.assertIs, FlagStooges)
++        test_pickle_dump_load(self.assertEqual, FlagStooges.BIG)
++        test_pickle_dump_load(self.assertEqual,
++                        FlagStooges.CURLY|FlagStooges.BIG)
+ 
+         test_pickle_dump_load(self.assertIs, FlagStoogesWithZero.CURLY)
+         test_pickle_dump_load(self.assertEqual,
+                         FlagStoogesWithZero.CURLY|FlagStoogesWithZero.MOE)
+         test_pickle_dump_load(self.assertIs, FlagStoogesWithZero.NOFLAG)
++        test_pickle_dump_load(self.assertEqual, FlagStoogesWithZero.BIG)
++        test_pickle_dump_load(self.assertEqual,
++                        FlagStoogesWithZero.CURLY|FlagStoogesWithZero.BIG)
+ 
+         test_pickle_dump_load(self.assertIs, IntFlagStooges.CURLY)
+         test_pickle_dump_load(self.assertEqual,
+@@ -3134,11 +3152,19 @@ def test_pickle(self):
+         test_pickle_dump_load(self.assertEqual, IntFlagStooges(0))
+         test_pickle_dump_load(self.assertEqual, IntFlagStooges(0x30))
+         test_pickle_dump_load(self.assertIs, IntFlagStooges)
++        test_pickle_dump_load(self.assertEqual, IntFlagStooges.BIG)
++        test_pickle_dump_load(self.assertEqual, IntFlagStooges.BIG|1)
++        test_pickle_dump_load(self.assertEqual,
++                        IntFlagStooges.CURLY|IntFlagStooges.BIG)
+ 
+         test_pickle_dump_load(self.assertIs, IntFlagStoogesWithZero.CURLY)
+         test_pickle_dump_load(self.assertEqual,
+                         IntFlagStoogesWithZero.CURLY|IntFlagStoogesWithZero.MOE)
+         test_pickle_dump_load(self.assertIs, IntFlagStoogesWithZero.NOFLAG)
++        test_pickle_dump_load(self.assertEqual, IntFlagStoogesWithZero.BIG)
++        test_pickle_dump_load(self.assertEqual, IntFlagStoogesWithZero.BIG|1)
++        test_pickle_dump_load(self.assertEqual,
++                        IntFlagStoogesWithZero.CURLY|IntFlagStoogesWithZero.BIG)
+ 
+     @unittest.skipIf(
+             python_version >= (3, 12),
+diff --git a/Misc/NEWS.d/next/Library/2023-06-06-11-50-33.gh-issue-105332.tmpgRA.rst b/Misc/NEWS.d/next/Library/2023-06-06-11-50-33.gh-issue-105332.tmpgRA.rst
+new file mode 100644
+index 000000000000000..31b6855a6ebfad2
+--- /dev/null
++++ b/Misc/NEWS.d/next/Library/2023-06-06-11-50-33.gh-issue-105332.tmpgRA.rst
+@@ -0,0 +1 @@
++Revert pickling method from by-name back to by-value.
