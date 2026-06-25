@@ -77,3 +77,4 @@ CVE-2025-11468.patch
 CVE-2026-1299.patch
 gh-106905.patch
 pexip-json.diff
+gh-102950-tarfile-filter.patch
