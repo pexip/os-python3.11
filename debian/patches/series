@@ -1,4 +1,3 @@
-# git-updates.diff
 deb-setup.diff
 deb-locations.diff
 distutils-install-layout.diff
@@ -15,8 +14,6 @@ langpack-gettext.diff
 disable-sem-check.diff
 lib-argparse.diff
 ctypes-arm.diff
-# link-timemodule.diff
-#lto-link-flags.diff
 multiarch.diff
 lib2to3-no-pickled-grammar.diff
 ext-no-libpython-link.diff
@@ -30,7 +27,6 @@ reproducible-buildinfo.diff
 pydoc-use-pager.diff
 local-doc-references.diff
 doc-build-texinfo.diff
-#build-math-object.diff
 argparse-no-shutil.diff
 sysconfigdata-name.diff
 hurd_kfreebsd_thread_native_id.diff
@@ -64,5 +60,20 @@ CVE-2024-6232.patch
 0001-3.11-gh-105704-Disallow-square-brackets-and-in-domai.patch
 0002-3.11-gh-100884-email-_header_value_parser-don-t-enco.patch
 0003-3.11-gh-118643-Fix-AttributeError-in-the-email-modul.patch
+CVE-2025-4516-1.patch
+CVE-2025-4516-2.patch
+CVE-2025-6069.patch
+CVE-2025-6075.patch
+CVE-2025-8194.patch
+CVE-2025-8291.patch
+CVE-2025-12084.patch
+CVE-2025-13836.patch
+CVE-2025-13837.patch
+CVE-2026-0865-1.patch
+CVE-2026-0865-2.patch
+CVE-2026-0672.patch
+CVE-2025-15282.patch
+CVE-2025-11468.patch
+CVE-2026-1299.patch
 gh-106905.patch
 pexip-json.diff

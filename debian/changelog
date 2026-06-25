@@ -1,3 +1,31 @@
+python3.11 (3.11.2-6+deb12u7) bookworm; urgency=medium
+
+  * Non-maintainer upload.
+  * Apply upstream patches for the following CVEs:
+    - CVE-2025-4516: issue in bytes.decode("unicode_escape",
+      error="ignore|replace")
+    - CVE-2025-6069: quadratic complexity in html.parser.HTMLParser
+    - CVE-2025-6075: performance degradation in os.path.expandvars()
+    - CVE-2025-8194: infinite loop and deadlock in tarfile
+    - CVE-2025-8291: incorrect ZIP64 End of Central Directory handling
+    - CVE-2025-11468: Folding email comments of unfoldable characters
+      didn't preserve parenthesis which could be abused.
+    - CVE-2025-12084: quadratic complexity in xml.dom.minidom appendChild etc
+    - CVE-2025-13836: OOM or other DoS due to incorrect Content-Length
+      handling in http.client
+    - CVE-2025-13837: OOM or other DoS due to incorrect data size handling
+      in plistlib
+    - CVE-2025-15282: User-controlled data URLs parsed by urllib allowed
+      injecting headers through newlines in the data URL mediatype.
+    - CVE-2026-0672: User-controlled cookie values and parameters could be
+      used to inject HTTP headers into messages.
+    - CVE-2026-0865: User-controlled header names and values containing
+      newlines could be used to inject HTTP headers.
+    - CVE-2026-1299: email module allowed header injection in the
+      BytesGenerator class.
+
+ -- Arnaud Rebillout <arnaudr@debian.org>  Wed, 08 Apr 2026 08:58:00 +0700
+
 python3.11 (3.11.2-6+pexip24u12+deb12u6) pexip; urgency=medium
 
   * New upstream release.
